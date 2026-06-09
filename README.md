@@ -17,6 +17,7 @@
 - [脚本参考](#脚本参考)
 - [参考文档](#参考文档)
 - [JSON Spec 格式](#json-spec-格式)
+- [作为 AI Agent Skill 安装](#作为-ai-agent-skill-安装)
 - [高级模式](#高级模式)
 - [常见问题](#常见问题)
 
@@ -31,6 +32,39 @@
 | 团队协作 | 无法 diff | `.shortcut` 可 diff |
 | 验证 | 运行才能知道对不对 | 静态验证，提前发现错误 |
 | 使用 AI 生成 | ❌ 无法直接生成 | JSON spec → 签名文件一步到位 |
+
+---
+
+## 作为 AI Agent Skill 安装
+
+本项目核心是一个 **AI Agent Skill** —— 让 Claude Code、Codex 等 AI Agent 能够自动生成、验证和签名 Apple Shortcuts。
+
+### 安装
+
+在任意项目目录下执行：
+
+```bash
+npx skills add https://github.com/ikenozhuo/apple-shortcuts-generate-skill.git
+```
+
+此命令会从 GitHub 拉取 skill 定义并注册到你的 Agent 环境中。安装完成后，Agent 便具备生成 Apple Shortcuts 的全部能力。
+
+### 使用方法
+
+安装后，直接在 Agent 会话中自然语言描述你想要创建的 Shortcut 即可：
+
+> **例子**：
+> *"帮我创建一个快捷指令，每天早上8点提醒我吃药"*
+> *"为一个网页内容创建一个 HTML 审查界面的 Shortcut"*
+> *"解包这个 signed.shortcut 文件，看看它的结构"*
+
+Agent 会自动：
+1. 查阅相关参考文档
+2. 编写 JSON spec
+3. 用 `build_shortcut.py` 生成 `.shortcut` 文件
+4. 用 `validate_shortcut.py` 验证结构
+5. 用 `shortcuts sign` 签名供导入
+
 
 ---
 

@@ -17,6 +17,7 @@ Stop dragging blocks around. Describe your automation as JSON, generate a `.shor
 - [Script Reference](#script-reference)
 - [Reference Docs](#reference-docs)
 - [JSON Spec Format](#json-spec-format-1)
+- [Install as an AI Agent Skill](#install-as-an-ai-agent-skill)
 - [Advanced Patterns](#advanced-patterns)
 - [FAQ](#faq)
 
@@ -31,6 +32,39 @@ Stop dragging blocks around. Describe your automation as JSON, generate a `.shor
 | Team collaboration | Can't diff | `.shortcut` is diffable |
 | Validation | Must run to find out | Static validation catches issues early |
 | AI generation | ❌ Can't generate directly | JSON spec → signed file in one step |
+
+---
+
+## Install as an AI Agent Skill
+
+This project is designed as an **AI Agent Skill** — it lets Claude Code, Codex, and similar AI agents automatically generate, validate, and sign Apple Shortcuts.
+
+### Installation
+
+Run this command from any project directory:
+
+```bash
+npx skills add https://github.com/ikenozhuo/apple-shortcuts-generate-skill.git
+```
+
+This fetches the skill definition from GitHub and registers it in your agent environment. Once installed, the agent gains full capability to generate Apple Shortcuts.
+
+### How to Use
+
+After installation, simply describe the Shortcut you want in natural language:
+
+> **Examples**:
+> *"Create a shortcut that reminds me to take medicine at 8 AM every day"*
+> *"Build an HTML review UI shortcut for web content"*
+> *"Unpack this signed.shortcut and show me its structure"*
+
+The agent will automatically:
+1. Look up the relevant reference docs
+2. Write a JSON spec
+3. Generate the `.shortcut` file with `build_shortcut.py`
+4. Validate it with `validate_shortcut.py`
+5. Sign it with `shortcuts sign` for import
+
 
 ---
 
