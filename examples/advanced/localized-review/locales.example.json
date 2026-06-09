@@ -1,0 +1,32 @@
+{
+  "zh-Hans": {
+    "mainPrompt": "选择功能",
+    "menuCollect": "收集箱",
+    "menuReview": "逐条确认",
+    "menuSettings": "设置"
+  },
+  "zh-Hant": {
+    "mainPrompt": "選擇功能",
+    "menuCollect": "收集箱",
+    "menuReview": "逐條確認",
+    "menuSettings": "設定"
+  },
+  "en": {
+    "mainPrompt": "Choose a function",
+    "menuCollect": "Inbox",
+    "menuReview": "Review items",
+    "menuSettings": "Settings"
+  },
+  "ja": {
+    "mainPrompt": "機能を選択",
+    "menuCollect": "受信箱",
+    "menuReview": "項目確認",
+    "menuSettings": "設定"
+  },
+  "zh": {
+    "mainPrompt": "择其所用",
+    "menuCollect": "收集箱",
+    "menuReview": "逐条审定",
+    "menuSettings": "设定"
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "name": "Demo Runtime",
+  "icon": {
+    "glyph": 59477,
+    "start_color": 4292093695
+  },
+  "types": [
+    "ActionExtension",
+    "WFWorkflowTypeShowInSearch"
+  ],
+  "input_content_item_classes": [
+    "WFStringContentItem",
+    "WFURLContentItem",
+    "WFImageContentItem",
+    "WFGenericFileContentItem",
+    "WFPDFContentItem",
+    "WFSafariWebPageContentItem"
+  ],
+  "has_shortcut_input_variables": true,
+  "actions": [
+    {
+      "id": "is.workflow.actions.choosefrommenu",
+      "params": {
+        "GroupingIdentifier": "22222222-2222-2222-2222-222222222222",
+        "WFControlFlowMode": 0,
+        "WFMenuPrompt": "Demo Runtime",
+        "WFMenuItems": [
+          "Run",
+          "Open Config"
+        ]
+      }
+    },
+    {
+      "id": "is.workflow.actions.choosefrommenu",
+      "params": {
+        "GroupingIdentifier": "22222222-2222-2222-2222-222222222222",
+        "WFControlFlowMode": 1,
+        "WFMenuItemTitle": "Run"
+      }
+    },
+    {
+      "id": "is.workflow.actions.showresult",
+      "params": {
+        "Text": "Load config, normalize Shortcut Input, route by mode, then produce the main output."
+      }
+    },
+    {
+      "id": "is.workflow.actions.choosefrommenu",
+      "params": {
+        "GroupingIdentifier": "22222222-2222-2222-2222-222222222222",
+        "WFControlFlowMode": 1,
+        "WFMenuItemTitle": "Open Config"
+      }
+    },
+    {
+      "id": "is.workflow.actions.showresult",
+      "params": {
+        "Text": "Replace this placeholder with a runworkflow action targeting Demo Config."
+      }
+    },
+    {
+      "id": "is.workflow.actions.choosefrommenu",
+      "params": {
+        "GroupingIdentifier": "22222222-2222-2222-2222-222222222222",
+        "WFControlFlowMode": 2
+      }
+    }
+  ]
+}

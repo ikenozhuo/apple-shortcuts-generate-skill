@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Shortcut Review</title>
+<style>
+:root {
+  color-scheme: dark;
+  --canvas: #010102;
+  --surface-1: #0f1011;
+  --surface-2: #141516;
+  --hairline: #23252a;
+  --hairline-strong: #34343a;
+  --ink: #f7f8f8;
+  --ink-muted: #d0d6e0;
+  --ink-subtle: #8a8f98;
+  --primary: #5e6ad2;
+  --primary-hover: #828fff;
+  --success: #27a644;
+  --kind: #5e6ad2;
+  --kind-soft: rgba(94, 106, 210, 0.18);
+}
+* { box-sizing: border-box; }
+body {
+  min-height: 100vh;
+  margin: 0;
+  padding: calc(env(safe-area-inset-top) + 18px) 14px
+    calc(env(safe-area-inset-bottom) + 22px);
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", Arial, sans-serif;
+  letter-spacing: 0;
+}
+.wrap { max-width: 780px; margin: 0 auto; }
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  color: var(--ink-subtle);
+  font-size: 13px;
+}
+.card {
+  overflow: hidden;
+  background: var(--surface-1);
+  border: 1px solid var(--hairline);
+  border-radius: 16px;
+}
+.stripe { height: 3px; background: var(--kind); }
+.inner { padding: 18px; }
+.eyebrow, .label {
+  color: var(--ink-subtle);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+h1 { margin: 7px 0; font-size: 28px; line-height: 1.16; }
+.subtitle { margin: 0 0 16px; color: var(--ink-subtle); line-height: 1.5; }
+.badges { display: flex; flex-wrap: wrap; gap: 8px; }
+.badge {
+  padding: 5px 9px;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--ink-muted);
+  font-size: 12px;
+}
+.badge.primary { border-color: var(--kind); background: var(--kind-soft); }
+.panel { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--hairline); }
+.panel.focus {
+  padding: 13px;
+  border: 1px solid var(--hairline-strong);
+  border-radius: 12px;
+  background: var(--surface-2);
+}
+.label { margin-bottom: 7px; }
+.value {
+  color: var(--ink-muted);
+  font-size: 16px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.focus .value { color: var(--ink); }
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 18px;
+}
+button {
+  min-height: 46px;
+  padding: 12px 10px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: white;
+  font-size: 14px;
+  font-weight: 650;
+}
+.accept { background: var(--primary); }
+.accept:active { background: var(--primary-hover); }
+.skip { border-color: var(--hairline-strong); background: var(--surface-2); }
+#status { min-height: 20px; margin-top: 12px; color: var(--success); font-size: 13px; }
+.hint { margin-top: 7px; color: var(--ink-subtle); font-size: 12px; line-height: 1.45; }
+body.kind-schedule { --kind: #d2995e; --kind-soft: rgba(210, 153, 94, 0.14); }
+body.kind-note { --kind: #66a98f; --kind-soft: rgba(102, 169, 143, 0.14); }
+</style>
+</head>
+<body>
+<span id="language" hidden>{{displayLanguage}}</span>
+<div class="wrap">
+  <div class="topbar"><span id="nav"></span><span id="languageCode"></span></div>
+  <main class="card">
+    <div class="stripe"></div>
+    <div class="inner">
+      <div class="eyebrow" id="eyebrow"></div>
+      <h1 id="title"></h1>
+      <p class="subtitle" id="subtitle"></p>
+      <div class="badges">
+        <span class="badge primary"><span data-key="type"></span>: <span id="typeValue">{{reviewType}}</span></span>
+        <span class="badge"><span data-key="destination"></span>: {{reviewDestination}}</span>
+        <span class="badge"><span data-key="subtype"></span>: {{reviewSubType}}</span>
+      </div>
+      <section class="panel">
+        <div class="label" data-key="original"></div>
+        <div class="value">{{reviewOriginal}}</div>
+      </section>
+      <section class="panel focus">
+        <div class="label" id="focusLabel"></div>
+        <div class="value">{{reviewFocus}}</div>
+      </section>
+      <section class="panel">
+        <div class="label" data-key="reason"></div>
+        <div class="value">{{reviewReason}}</div>
+      </section>
+      <div class="actions">
+        <button class="accept" id="accept" onclick="choose('accept')"></button>
+        <button class="skip" id="skip" onclick="choose('skip')"></button>
+      </div>
+      <div id="status"></div>
+      <div class="hint" id="hint"></div>
+    </div>
+  </main>
+</div>
+<script>
+const locales = {
+  "zh-Hans": {
+    nav: "逐条确认", type: "类型", destination: "去向", subtype: "子类",
+    original: "原始内容", reason: "分类理由", accept: "接受写入", skip: "跳过",
+    hint: "选择后请点左上角“完成”返回快捷指令。",
+    accepted: "已选择接受。请点“完成”返回。", skipped: "已选择跳过。请点“完成”返回。",
+    action: ["行动项确认", "检查动作是否明确、可执行。", "行动改写"],
+    schedule: ["日程确认", "检查时间、标题和日历安排。", "日程标题"],
+    note: ["笔记确认", "检查内容、标题和归档位置。", "笔记标题"]
+  },
+  "zh-Hant": {
+    nav: "逐條確認", type: "類型", destination: "去向", subtype: "子類",
+    original: "原始內容", reason: "分類理由", accept: "接受寫入", skip: "跳過",
+    hint: "選擇後請點左上角「完成」返回捷徑。",
+    accepted: "已選擇接受。請點「完成」返回。", skipped: "已選擇跳過。請點「完成」返回。",
+    action: ["行動項確認", "檢查動作是否明確、可執行。", "行動改寫"],
+    schedule: ["日程確認", "檢查時間、標題和行事曆安排。", "日程標題"],
+    note: ["筆記確認", "檢查內容、標題和歸檔位置。", "筆記標題"]
+  },
+  "en": {
+    nav: "Item review", type: "Type", destination: "Destination", subtype: "Subtype",
+    original: "Original", reason: "Reason", accept: "Accept", skip: "Skip",
+    hint: "After choosing, tap Done in the top-left to return to Shortcuts.",
+    accepted: "Accepted. Tap Done to return.", skipped: "Skipped. Tap Done to return.",
+    action: ["Action review", "Check that the next action is concrete.", "Action rewrite"],
+    schedule: ["Schedule review", "Check the time, title, and calendar.", "Event title"],
+    note: ["Note review", "Check the content, title, and archive destination.", "Note title"]
+  },
+  "ja": {
+    nav: "項目確認", type: "種類", destination: "保存先", subtype: "サブタイプ",
+    original: "元の内容", reason: "分類理由", accept: "書き込む", skip: "スキップ",
+    hint: "選択後、左上の「完了」をタップして戻ってください。",
+    accepted: "書き込みを選択しました。「完了」をタップしてください。",
+    skipped: "スキップを選択しました。「完了」をタップしてください。",
+    action: ["アクション確認", "実行可能な内容か確認してください。", "アクション内容"],
+    schedule: ["予定確認", "時間、タイトル、カレンダーを確認してください。", "予定タイトル"],
+    note: ["ノート確認", "内容、タイトル、保存先を確認してください。", "ノートタイトル"]
+  },
+  "zh": {
+    nav: "逐条审定", type: "类别", destination: "归处", subtype: "细类",
+    original: "原文", reason: "判别缘由", accept: "允写入", skip: "略过",
+    hint: "择定后，请点左上角“完成”返回。",
+    accepted: "已允写入。请点“完成”返回。", skipped: "已略过。请点“完成”返回。",
+    action: ["行动审定", "核其行动是否明白可行。", "行动改写"],
+    schedule: ["日程审定", "核其时刻、标题与日历安排。", "日程标题"],
+    note: ["札记审定", "核其内容、标题与归处。", "札记标题"]
+  }
+};
+const requested = document.getElementById("language").textContent.trim();
+const language = locales[requested] ? requested : "zh-Hans";
+const ui = locales[language];
+const rawType = document.getElementById("typeValue").textContent.trim().toLowerCase();
+const type = ["action", "schedule", "note"].includes(rawType) ? rawType : "note";
+document.documentElement.lang = language;
+document.body.classList.add(`kind-${type}`);
+document.getElementById("languageCode").textContent = language;
+document.getElementById("nav").textContent = ui.nav;
+document.querySelectorAll("[data-key]").forEach((element) => {
+  element.textContent = ui[element.dataset.key];
+});
+document.getElementById("title").textContent = ui[type][0];
+document.getElementById("subtitle").textContent = ui[type][1];
+document.getElementById("focusLabel").textContent = ui[type][2];
+document.getElementById("eyebrow").textContent = `${type} · review`;
+document.getElementById("accept").textContent = ui.accept;
+document.getElementById("skip").textContent = ui.skip;
+document.getElementById("hint").textContent = ui.hint;
+async function choose(value) {
+  const result = `review:${value}`;
+  try {
+    await navigator.clipboard.writeText(result);
+  } catch {
+    const area = document.createElement("textarea");
+    area.value = result;
+    document.body.appendChild(area);
+    area.select();
+    document.execCommand("copy");
+    area.remove();
+  }
+  document.getElementById("status").textContent =
+    value === "accept" ? ui.accepted : ui.skipped;
+}
+</script>
+</body>
+</html>
+

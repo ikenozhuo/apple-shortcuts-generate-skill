@@ -1,0 +1,4 @@
+interface:
+  display_name: "Shortcuts Generator"
+  short_description: "Generate and inspect Apple Shortcuts"
+  default_prompt: "Use $shortcuts-generator to create, sign, or inspect an Apple Shortcuts workflow."

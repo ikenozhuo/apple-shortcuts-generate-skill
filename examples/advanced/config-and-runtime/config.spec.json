@@ -1,0 +1,71 @@
+{
+  "name": "Demo Config",
+  "icon": {
+    "glyph": 59458,
+    "start_color": 4282601983
+  },
+  "actions": [
+    {
+      "id": "is.workflow.actions.choosefrommenu",
+      "params": {
+        "GroupingIdentifier": "11111111-1111-1111-1111-111111111111",
+        "WFControlFlowMode": 0,
+        "WFMenuPrompt": "Demo Config",
+        "WFMenuItems": [
+          "Initialize",
+          "Show Status",
+          "Reset Data"
+        ]
+      }
+    },
+    {
+      "id": "is.workflow.actions.choosefrommenu",
+      "params": {
+        "GroupingIdentifier": "11111111-1111-1111-1111-111111111111",
+        "WFControlFlowMode": 1,
+        "WFMenuItemTitle": "Initialize"
+      }
+    },
+    {
+      "id": "is.workflow.actions.showresult",
+      "params": {
+        "Text": "Initialize defaults here: create folder, write config files, then run Demo Runtime if needed."
+      }
+    },
+    {
+      "id": "is.workflow.actions.choosefrommenu",
+      "params": {
+        "GroupingIdentifier": "11111111-1111-1111-1111-111111111111",
+        "WFControlFlowMode": 1,
+        "WFMenuItemTitle": "Show Status"
+      }
+    },
+    {
+      "id": "is.workflow.actions.showresult",
+      "params": {
+        "Text": "Read config files or config JSON here and show a concise status summary."
+      }
+    },
+    {
+      "id": "is.workflow.actions.choosefrommenu",
+      "params": {
+        "GroupingIdentifier": "11111111-1111-1111-1111-111111111111",
+        "WFControlFlowMode": 1,
+        "WFMenuItemTitle": "Reset Data"
+      }
+    },
+    {
+      "id": "is.workflow.actions.showresult",
+      "params": {
+        "Text": "Confirm first, then reset only this shortcut suite's own data folder."
+      }
+    },
+    {
+      "id": "is.workflow.actions.choosefrommenu",
+      "params": {
+        "GroupingIdentifier": "11111111-1111-1111-1111-111111111111",
+        "WFControlFlowMode": 2
+      }
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "displayLanguage": {
+    "Type": "Variable",
+    "VariableName": "displayLanguage"
+  },
+  "reviewType": {
+    "Type": "ActionOutput",
+    "OutputUUID": "11111111-1111-1111-1111-111111111111",
+    "OutputName": "reviewType"
+  },
+  "reviewDestination": {
+    "Type": "ActionOutput",
+    "OutputUUID": "22222222-2222-2222-2222-222222222222",
+    "OutputName": "reviewDestination"
+  },
+  "reviewSubType": {
+    "Type": "ActionOutput",
+    "OutputUUID": "33333333-3333-3333-3333-333333333333",
+    "OutputName": "reviewSubType"
+  },
+  "reviewOriginal": {
+    "Type": "ActionOutput",
+    "OutputUUID": "44444444-4444-4444-4444-444444444444",
+    "OutputName": "reviewOriginal"
+  },
+  "reviewFocus": {
+    "Type": "ActionOutput",
+    "OutputUUID": "55555555-5555-5555-5555-555555555555",
+    "OutputName": "reviewFocus"
+  },
+  "reviewReason": {
+    "Type": "ActionOutput",
+    "OutputUUID": "66666666-6666-6666-6666-666666666666",
+    "OutputName": "reviewReason"
+  }
+}
+
